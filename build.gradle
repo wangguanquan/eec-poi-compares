@@ -10,12 +10,13 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.ttzero:eec:0.3.3'
-    implementation 'org.apache.poi:poi:4.1.0'
+    implementation 'org.ttzero:eec:0.4.2-SNAPSHOT'
+    implementation 'com.alibaba:easyexcel:2.1.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
