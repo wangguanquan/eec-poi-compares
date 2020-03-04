@@ -17,8 +17,6 @@
 
 package org.ttzero.compares;
 
-import org.ttzero.excel.annotation.ExcelColumn;
-
 /**
  * @author guanquan.wang at 2020-03-03 10:36
  */

@@ -16,7 +16,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.ttzero:eec:0.4.2-SNAPSHOT'
+    implementation 'org.ttzero:eec:0.4.2'
     implementation 'com.alibaba:easyexcel:2.1.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

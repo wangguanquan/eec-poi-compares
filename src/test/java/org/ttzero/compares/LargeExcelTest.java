@@ -45,7 +45,7 @@ public class LargeExcelTest {
 
     private Path defaultTestPath = Paths.get("out/excel/");
     private static File template07;
-    private int i, loop = 3;
+    private int i, loop = 100;
 
     @Before public void before() throws IOException {
         if (!Files.exists(defaultTestPath)) {
@@ -92,7 +92,7 @@ public class LargeExcelTest {
     @Test public void test4() {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
-        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve("Large EEC.xlsx"))) {
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve("Large easyexcel.xlsx"))) {
             long n = reader.sheets().flatMap(Sheet::dataRows).map(row -> row.too(LargeData.class)).count();
             LOGGER.info("Data rows: {}", n);
         } catch (IOException e) {
