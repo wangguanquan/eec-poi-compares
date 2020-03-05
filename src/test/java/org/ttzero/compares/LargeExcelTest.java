@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import org.ttzero.excel.entity.ListSheet;
 import org.ttzero.excel.entity.Workbook;
 import org.ttzero.excel.reader.ExcelReader;
-import org.ttzero.excel.reader.Sheet;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +46,7 @@ import static org.ttzero.compares.BaseExcelTest.random;
  */
 @FixMethodOrder(NAME_ASCENDING)
 public class LargeExcelTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LargeExcelTest.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     public static Path defaultTestPath = Paths.get("out/excel/");
     private static File template07;
@@ -60,6 +59,43 @@ public class LargeExcelTest {
         template07 = new File("./src/test/resources/large/fill.xlsx");
     }
 
+    // 先空测写1w ~ 100w的时间
+    // -----------------1w----------------
+    @Test public void test1w() {
+        loop = 10;
+        emptyLoop();
+    }
+
+    // -----------------5w----------------
+    @Test public void test5w() {
+        loop = 50;
+        emptyLoop();
+    }
+
+    // -----------------10w----------------
+    @Test public void test10w() {
+        loop = 100;
+        emptyLoop();
+    }
+
+    // -----------------50w----------------
+    @Test public void test50w() {
+        loop = 500;
+        emptyLoop();
+    }
+
+    // -----------------100w----------------
+    @Test public void test100w() throws InterruptedException {
+        Thread.sleep(20_000L);
+        loop = 1000;
+        emptyLoop();
+    }
+
+    private void emptyLoop() {
+        for (int j = 0; j < loop; j++, data());
+    }
+
+    // 以下进行excel读写测试
     // -----------------1w----------------
     @Test public void testEasy1w() {
         loop = 10;
@@ -78,6 +114,26 @@ public class LargeExcelTest {
 
     @Test public void testEec1wr() {
         eecRead("eec 1w");
+    }
+
+    // -----------------5w----------------
+    @Test public void testEasy5w() {
+        loop = 50;
+        easyWrite("easy 5w");
+    }
+
+
+    @Test public void testEec5w() throws IOException {
+        loop = 50;
+        eecWrite("eec 5w");
+    }
+
+    @Test public void testEasy5wr() {
+        easyRead("easy 5w");
+    }
+
+    @Test public void testEec5wr() {
+        eecRead("eec 5w");
     }
 
     // -----------------10w----------------
@@ -126,7 +182,6 @@ public class LargeExcelTest {
         easyWrite("easy 100w");
     }
 
-
     @Test public void testEec100w() throws IOException {
         loop = 1000;
         eecWrite("eec 100w");
@@ -140,6 +195,7 @@ public class LargeExcelTest {
         eecRead("eec 100w");
     }
 
+    // --------------------------------------
     private void easyWrite(String name) {
         LOGGER.info("Easy-excel start to write...");
         long start = System.currentTimeMillis();
@@ -178,7 +234,15 @@ public class LargeExcelTest {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
         try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
-            long n = reader.sheets().flatMap(Sheet::dataRows).map(row -> row.too(LargeData.class)).count();
+            long n = reader.sheets().flatMap(sheet -> {
+                LOGGER.info("Worksheet [{}] dimension: {}", sheet.getName(), sheet.getDimension());
+                return sheet.dataRows();
+            }).map(row -> {
+                if (row.getRowNumber() % 100_000 == 0) {
+                    LOGGER.info("Reading {} rows", row.getRowNumber());
+                }
+                return row.too(LargeData.class);
+            }).count();
             LOGGER.info("Data rows: {}", n);
         } catch (IOException e) {
             e.printStackTrace();
