@@ -17,85 +17,16 @@
 
 package org.ttzero.compares;
 
+import java.util.Date;
+
 /**
  * @author guanquan.wang at 2020-03-03 10:36
  */
 public class LargeData {
-//    @ExcelColumn(share = false)
-//    private String str1;
-//
-//    @ExcelColumn(share = false)
-//    private String str2;
-//
-//    @ExcelColumn(share = false)
-//    private String str3;
-//
-//    @ExcelColumn(share = false)
-//    private String str4;
-//
-//    @ExcelColumn(share = false)
-//    private String str5;
-//
-//    @ExcelColumn(share = false)
-//    private String str6;
-//
-//    @ExcelColumn(share = false)
-//    private String str7;
-//
-//    @ExcelColumn(share = false)
-//    private String str8;
-//
-//    @ExcelColumn(share = false)
-//    private String str9;
-//
-//    @ExcelColumn(share = false)
-//    private String str10;
-//
-//    @ExcelColumn(share = false)
-//    private String str11;
-//
-//    @ExcelColumn(share = false)
-//    private String str12;
-//
-//    @ExcelColumn(share = false)
-//    private String str13;
-//
-//    @ExcelColumn(share = false)
-//    private String str14;
-//
-//    @ExcelColumn(share = false)
-//    private String str15;
-//
-//    @ExcelColumn(share = false)
-//    private String str16;
-//
-//    @ExcelColumn(share = false)
-//    private String str17;
-//
-//    @ExcelColumn(share = false)
-//    private String str18;
-//
-//    @ExcelColumn(share = false)
-//    private String str19;
-//
-//    @ExcelColumn(share = false)
-//    private String str20;
-//
-//    @ExcelColumn(share = false)
-//    private String str21;
-//
-//    @ExcelColumn(share = false)
-//    private String str22;
-//
-//    @ExcelColumn(share = false)
-//    private String str23;
-//
-//    @ExcelColumn(share = false)
-//    private String str24;
-//
-//    @ExcelColumn(share = false)
-//    private String str25;
-
+    private int nv;
+    private long lv;
+    private double dv;
+    private Date av;
     private String str1;
     private String str2;
     private String str3;
@@ -121,6 +52,38 @@ public class LargeData {
     private String str23;
     private String str24;
     private String str25;
+
+    public int getNv() {
+        return nv;
+    }
+
+    public void setNv(int nv) {
+        this.nv = nv;
+    }
+
+    public long getLv() {
+        return lv;
+    }
+
+    public void setLv(long lv) {
+        this.lv = lv;
+    }
+
+    public double getDv() {
+        return dv;
+    }
+
+    public void setDv(double dv) {
+        this.dv = dv;
+    }
+
+    public Date getAv() {
+        return av;
+    }
+
+    public void setAv(Date av) {
+        this.av = av;
+    }
 
     public String getStr1() {
         return str1;
