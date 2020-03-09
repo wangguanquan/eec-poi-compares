@@ -26,19 +26,19 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import com.alibaba.excel.read.listener.ReadListener;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import org.junit.Test;
 import org.ttzero.excel.entity.ListSheet;
 import org.ttzero.excel.entity.WaterMark;
 import org.ttzero.excel.entity.Workbook;
 import org.ttzero.excel.entity.style.Fill;
-import org.ttzero.excel.entity.style.PatternType;
 import org.ttzero.excel.entity.style.Styles;
 import org.ttzero.excel.reader.ExcelReader;
 import org.ttzero.excel.reader.Sheet;
 
 import java.awt.*;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -143,19 +143,7 @@ public class BaseExcelTest {
     }
 
     @Test public void test4() {
-        EasyExcel.read(defaultTestPath.resolve("testEasyExcelAllType.xlsx").toFile(),
-            new AnalysisEventListener<Map<String, Object>> () {
-
-                @Override
-                public void invoke(Map<String, Object> data, AnalysisContext context) {
-                    System.out.println(data);
-                }
-
-                @Override
-                public void doAfterAllAnalysed(AnalysisContext context) {
-
-                }
-            })
+        EasyExcel.read(defaultTestPath.resolve("testEasyExcelAllType.xlsx").toFile(), simpleListener)
             .registerConverter(charConverter)
             .registerConverter(timestampConverter)
             .registerConverter(timeConverter)
@@ -211,6 +199,35 @@ public class BaseExcelTest {
         .writeTo(defaultTestPath);
     }
 
+    private ReadListener<Map<String, Object>> simpleListener = new AnalysisEventListener<Map<String, Object>> () {
+        @Override
+        public void invoke(Map<String, Object> data, AnalysisContext context) {
+            System.out.println(data);
+        }
+
+        @Override
+        public void doAfterAllAnalysed(AnalysisContext context) { }
+    };
+
+    @Test public void test9() {
+        com.alibaba.excel.ExcelReader excelReader = EasyExcel.read(defaultTestPath.resolve("test7.xlsx").toFile(), simpleListener).headRowNumber(0).build();
+        List<ReadSheet> sheets = excelReader.excelExecutor().sheetList();
+        sheets.forEach(sheet -> {
+            System.out.println("----------" + sheet.getSheetName() + "-----------");
+            excelReader.read(sheet);
+        });
+    }
+
+    @Test public void test10() {
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve("test8.xlsx"))) {
+            reader.sheets().flatMap(sheet -> {
+                System.out.println("----------" + sheet.getName() + "-----------");
+                return sheet.rows();
+            }).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
