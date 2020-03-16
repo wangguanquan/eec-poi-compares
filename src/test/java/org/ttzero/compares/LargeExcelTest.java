@@ -19,6 +19,8 @@ package org.ttzero.compares;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -35,7 +37,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -197,99 +202,99 @@ public class LargeExcelTest {
     }
 
     // ------------------JDBC似读文件------------------
-//    @Test public void testEec1wrJdbc() {
-//        eecRead0("eec 1w");
-//    }
-//
-//    @Test public void testEec5wrJdbc() {
-//        eecRead0("eec 5w");
-//
-//    }
-//
-//    @Test public void testEec10wrJdbc() {
-//        eecRead0("eec 10w");
-//
-//    }
-//
-//    @Test public void testEec50wrJdbc() {
-//        eecRead0("eec 50w");
-//
-//    }
-//
-//    @Test public void testEec100wrJdbc() {
-//        eecRead0("eec 100w");
-//    }
-//
-//    //------------------SharedString方式------------------
-//    //-----------------1w----------------
-//    @Test public void testEecShared1w() throws IOException {
-//        loop = 10;
-//        eecWriteShared("eec shared 1w");
-//    }
-//
-//    @Test public void testEecShared1wr() {
-//        eecRead("eec shared 1w");
-//    }
-//
-//    @Test public void testEsyShared1wr() {
-//        easyRead("eec shared 1w");
-//    }
-//
-//    //-----------------5w----------------
-//    @Test public void testEecShared5w() throws IOException {
-//        loop = 50;
-//        eecWriteShared("eec shared 5w");
-//    }
-//
-//    @Test public void testEecShared5wr() {
-//        eecRead("eec shared 5w");
-//    }
-//
-//    @Test public void testEsyShared5wr() {
-//        easyRead("eec shared 5w");
-//    }
-//
-//    //-----------------10w----------------
-//    @Test public void testEecShared10w() throws IOException {
-//        loop = 100;
-//        eecWriteShared("eec shared 10w");
-//    }
-//
-//    @Test public void testEecShared10wr() {
-//        eecRead("eec shared 10w");
-//    }
-//
-//    @Test public void testEsyShared10wr() {
-//        easyRead("eec shared 10w");
-//    }
-//
-//    //-----------------50w----------------
-//    @Test public void testEecShared50w() throws IOException {
-//        loop = 500;
-//        eecWriteShared("eec shared 50w");
-//    }
-//
-//    @Test public void testEecShared50wr() {
-//        eecRead("eec shared 50w");
-//    }
-//
-//    @Test public void testEsyShared50wr() {
-//        easyRead("eec shared 50w");
-//    }
-//
-//    //-----------------100w----------------
-//    @Test public void testEecShared100w() throws IOException {
-//        loop = 1000;
-//        eecWriteShared("eec shared 100w");
-//    }
-//
-//    @Test public void testEecShared100wr() {
-//        eecRead("eec shared 100w");
-//    }
-//
-//    @Test public void testEsyShared100wr() {
-//        easyRead("eec shared 100w");
-//    }
+    @Test public void testEec1wrJdbc() {
+        eecDistinct("eec shared 1w");
+    }
+
+    @Test public void testEec5wrJdbc() {
+        eecDistinct("eec shared 5w");
+
+    }
+
+    @Test public void testEec10wrJdbc() {
+        eecDistinct("eec shared 10w");
+
+    }
+
+    @Test public void testEec50wrJdbc() {
+        eecDistinct("eec shared 50w");
+
+    }
+
+    @Test public void testEec100wrJdbc() {
+        eecDistinct("eec shared 100w");
+    }
+
+    //------------------SharedString方式------------------
+    //-----------------1w----------------
+    @Test public void testEecShared1w() throws IOException {
+        loop = 10;
+        eecWriteShared("eec shared 1w");
+    }
+
+    @Test public void testEecShared1wr() {
+        eecRead("eec shared 1w");
+    }
+
+    @Test public void testEsyShared1wr() {
+        easyRead0("eec shared 1w");
+    }
+
+    //-----------------5w----------------
+    @Test public void testEecShared5w() throws IOException {
+        loop = 50;
+        eecWriteShared("eec shared 5w");
+    }
+
+    @Test public void testEecShared5wr() {
+        eecRead("eec shared 5w");
+    }
+
+    @Test public void testEsyShared5wr() {
+        easyRead0("eec shared 5w");
+    }
+
+    //-----------------10w----------------
+    @Test public void testEecShared10w() throws IOException {
+        loop = 100;
+        eecWriteShared("eec shared 10w");
+    }
+
+    @Test public void testEecShared10wr() {
+        eecRead("eec shared 10w");
+    }
+
+    @Test public void testEsyShared10wr() {
+        easyRead0("eec shared 10w");
+    }
+
+    //-----------------50w----------------
+    @Test public void testEecShared50w() throws IOException {
+        loop = 500;
+        eecWriteShared("eec shared 50w");
+    }
+
+    @Test public void testEecShared50wr() {
+        eecRead("eec shared 50w");
+    }
+
+    @Test public void testEsyShared50wr() {
+        easyRead0("eec shared 50w");
+    }
+
+    //-----------------100w----------------
+    @Test public void testEecShared100w() throws IOException {
+        loop = 1000;
+        eecWriteShared("eec shared 100w");
+    }
+
+    @Test public void testEecShared100wr() {
+        eecRead("eec shared 100w");
+    }
+
+    @Test public void testEsyShared100wr() {
+        easyRead0("eec shared 100w");
+    }
 
     //--------------------------------------
 
@@ -327,6 +332,30 @@ public class LargeExcelTest {
         LOGGER.info("Easy-excel read finished. used: {}", System.currentTimeMillis() - start);
     }
 
+    private void easyRead0(String name) {
+        LOGGER.info("Easy-excel start to read...");
+        long start = System.currentTimeMillis();
+        EasyExcel.read(defaultTestPath.resolve(name + ".xlsx").toFile(), LargeSharedData.class,
+            new AnalysisEventListener<LargeSharedData>() {
+                private final Logger LOGGER = LoggerFactory.getLogger(LargeSharedData.class);
+                private int count = 0;
+
+                @Override
+                public void invoke(LargeSharedData data, AnalysisContext context) {
+                    count++;
+                    if (count % 100000 == 0) {
+                        LOGGER.info("Already read:{}", count);
+                    }
+                }
+
+                @Override
+                public void doAfterAllAnalysed(AnalysisContext context) {
+                    LOGGER.info("Large row count:{}", count);
+                }
+            }).headRowNumber(1).sheet().doRead();
+        LOGGER.info("Easy-excel read finished. used: {}", System.currentTimeMillis() - start);
+    }
+
     private void eecRead(String name) {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
@@ -351,7 +380,7 @@ public class LargeExcelTest {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
         try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
-            long n = reader.sheets().flatMap(Sheet::rows).count();
+            long n = reader.sheets().flatMap(Sheet::rows).map(row -> row.getString(4)).count();
             LOGGER.info("Data rows: {}", n);
         } catch (IOException e) {
             e.printStackTrace();
@@ -370,6 +399,18 @@ public class LargeExcelTest {
             }
         }).writeTo(defaultTestPath.resolve(name + ".xlsx"));
         LOGGER.info("EEC write finished. used: {}", System.currentTimeMillis() - start);
+    }
+
+    private void eecDistinct(String name) {
+        LOGGER.info("EEC start to read...");
+        long start = System.currentTimeMillis();
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
+            String[] provinces = reader.sheets().flatMap(Sheet::rows).map(row -> row.getString(4)).distinct().toArray(String[]::new);
+            LOGGER.info("Distinct provinces: {}", Arrays.toString(provinces));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LOGGER.info("EEC read finished. used: {}", System.currentTimeMillis() - start);
     }
 
     // 以下代码由easyexcel测试代码`com.alibaba.easyexcel.test.core.large.LargeDataTest#data`复制而来
