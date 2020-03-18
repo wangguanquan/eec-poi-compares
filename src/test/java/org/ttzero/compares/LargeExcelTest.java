@@ -37,8 +37,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -92,7 +90,7 @@ public class LargeExcelTest {
 
     // -----------------100w----------------
     @Test public void test100w() throws InterruptedException {
-        Thread.sleep(20_000L);
+        Thread.sleep(5_000L);
         loop = 1000;
         emptyLoop();
     }
@@ -233,7 +231,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEecShared1wr() {
-        eecRead("eec shared 1w");
+        eecSharedRead("eec shared 1w");
     }
 
     @Test public void testEsyShared1wr() {
@@ -247,7 +245,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEecShared5wr() {
-        eecRead("eec shared 5w");
+        eecSharedRead("eec shared 5w");
     }
 
     @Test public void testEsyShared5wr() {
@@ -261,7 +259,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEecShared10wr() {
-        eecRead("eec shared 10w");
+        eecSharedRead("eec shared 10w");
     }
 
     @Test public void testEsyShared10wr() {
@@ -275,7 +273,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEecShared50wr() {
-        eecRead("eec shared 50w");
+        eecSharedRead("eec shared 50w");
     }
 
     @Test public void testEsyShared50wr() {
@@ -289,7 +287,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEecShared100wr() {
-        eecRead("eec shared 100w");
+        eecSharedRead("eec shared 100w");
     }
 
     @Test public void testEsyShared100wr() {
@@ -357,6 +355,10 @@ public class LargeExcelTest {
     }
 
     private void eecRead(String name) {
+        eecRead(name, LargeData.class);
+    }
+
+    private void eecRead(String name, Class<?> clazz) {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
         try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
@@ -367,7 +369,7 @@ public class LargeExcelTest {
                 if (row.getRowNumber() % 100_000 == 0) {
                     LOGGER.info("Reading {} rows", row.getRowNumber());
                 }
-                return row.too(LargeData.class);
+                return row.too(clazz);
             }).count();
             LOGGER.info("Data rows: {}", n);
         } catch (IOException e) {
@@ -376,12 +378,17 @@ public class LargeExcelTest {
         LOGGER.info("EEC read finished. used: {}", System.currentTimeMillis() - start);
     }
 
+    private void eecSharedRead(String name) {
+        eecRead(name, LargeSharedData.class);
+    }
+
     private void eecRead0(String name) {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
         try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
-            long n = reader.sheets().flatMap(Sheet::rows).map(row -> row.getString(4)).count();
-            LOGGER.info("Data rows: {}", n);
+//            long n = reader.sheets().flatMap(Sheet::rows).map(row -> row.getString(4)).count();
+//            LOGGER.info("Data rows: {}", n);
+            reader.sheets().flatMap(Sheet::rows).forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -462,7 +469,7 @@ public class LargeExcelTest {
     };
     private static String[][][] areas = {{
         {"玄武区", "秦淮区", "鼓楼区", "雨花台区", "栖霞区"}
-        , {"虎丘区", "吴中区", "相城区", " 姑苏区", "吴江区"}
+        , {"虎丘区", "吴中区", "相城区", "姑苏区", "吴江区"}
         , {"锡山区", "惠山区", "滨湖区", "新吴区", "江阴市"}
         , {"鼓楼区", "云龙区", "贾汪区", "泉山区"}
     }, {
