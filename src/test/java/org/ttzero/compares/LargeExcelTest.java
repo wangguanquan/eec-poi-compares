@@ -27,8 +27,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.ttzero.excel.entity.IWorksheetWriter;
 import org.ttzero.excel.entity.ListSheet;
 import org.ttzero.excel.entity.Workbook;
+import org.ttzero.excel.entity.e7.XMLWorkbookWriter;
+import org.ttzero.excel.entity.e7.XMLWorksheetWriter;
 import org.ttzero.excel.reader.ExcelReader;
 import org.ttzero.excel.reader.Sheet;
 
@@ -418,6 +421,30 @@ public class LargeExcelTest {
             e.printStackTrace();
         }
         LOGGER.info("EEC read finished. used: {}", System.currentTimeMillis() - start);
+    }
+
+    private void eecWritePaging(String name) throws IOException {
+        LOGGER.info("EEC start to write...");
+        long start = System.currentTimeMillis();
+        new Workbook().addSheet(new ListSheet<LargeSharedData>() {
+            int n = 0;
+            @Override
+            public List<LargeSharedData> more() {
+                LOGGER.info("{} fill success.", n);
+                return n++ < loop ? createSharedData() : null;
+            }
+        }).setWorkbookWriter(new XMLWorkbookWriter() {
+            @Override
+            protected IWorksheetWriter getWorksheetWriter(org.ttzero.excel.entity.Sheet sheet) {
+                return new XMLWorksheetWriter(sheet) {
+                    @Override
+                    public int getRowLimit() {
+                        return (1 << 16) - 1;
+                    }
+                };
+            }
+        }).writeTo(defaultTestPath.resolve(name + ".xlsx"));
+        LOGGER.info("EEC write finished. used: {}", System.currentTimeMillis() - start);
     }
 
     // 以下代码由easyexcel测试代码`com.alibaba.easyexcel.test.core.large.LargeDataTest#data`复制而来
