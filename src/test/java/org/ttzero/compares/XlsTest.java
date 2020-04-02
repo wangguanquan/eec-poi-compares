@@ -17,46 +17,46 @@
 
 package org.ttzero.compares;
 
-import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 
-import static org.ttzero.compares.LargeExcelTest.easyRead0;
+import static org.ttzero.compares.LargeExcelTest.easySharedRead;
 import static org.ttzero.compares.LargeExcelTest.eecSharedRead;
 
 /**
  * @author guanquan.wang at 2020-03-23 11:57
  */
-@FixMethodOrder
 public class XlsTest {
-//    @Before
-//    public void before() throws InterruptedException {
-//        Thread.sleep(10_000L);
-//    }
 
-    @Test public void testEEC1w() {
+    @Test public void testEec1w() {
         eecSharedRead("eec shared 1w.xls");
     }
 
 
-    @Test public void testEEC5w() {
+    @Test public void testEec5w() {
         eecSharedRead("eec shared 5w.xls");
     }
 
-    @Test public void testEEC10w() {
+    @Test public void testEec10w() {
         eecSharedRead("eec shared 10w.xls");
     }
 
-    @Test public void testEasExcel1w() {
-        easyRead0("eec shared 1w.xls");
+    @Test public void testEec32w() {
+        eecSharedRead("eec shared 32w.xls");
     }
 
-
-    @Test public void testEasExcel5w() {
-        easyRead0("eec shared 5w.xls");
+    @Test public void testEas1w() {
+        easySharedRead("eec shared 1w.xls");
     }
 
-    @Test public void testEasExcel10w() {
-        easyRead0("eec shared 10w.xls");
+    @Test public void testEasl5w() {
+        easySharedRead("eec shared 5w.xls");
+    }
+
+    @Test public void testEas10w() {
+        easySharedRead("eec shared 10w.xls");
+    }
+
+    @Test public void testEas32w() {
+        easySharedRead("eec shared 32w.xls");
     }
 }
