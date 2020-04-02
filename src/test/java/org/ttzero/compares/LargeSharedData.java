@@ -311,4 +311,9 @@ public class LargeSharedData {
     public void setStr25(String str25) {
         this.str25 = str25;
     }
+
+    @Override
+    public String toString() {
+        return province + " | " + city + " | " + area + " | " + str4 + " | " + str25;
+    }
 }

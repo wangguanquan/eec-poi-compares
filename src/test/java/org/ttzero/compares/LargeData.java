@@ -284,4 +284,9 @@ public class LargeData {
     public void setStr25(String str25) {
         this.str25 = str25;
     }
+
+    @Override
+    public String toString() {
+        return str1 + " | " + str2 + " | " + str3 + " | " + str4 + " | " + str25;
+    }
 }
