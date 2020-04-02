@@ -189,7 +189,7 @@ public class LargeExcelTest {
     }
 
     @Test public void testEec100w() throws IOException {
-        loop = 100000;
+        loop = 1000;
         eecWrite("eec 100w");
     }
 
