@@ -31,7 +31,6 @@ public class XlsTest {
         eecSharedRead("eec shared 1w.xls");
     }
 
-
     @Test public void testEec5w() {
         eecSharedRead("eec shared 5w.xls");
     }
@@ -48,7 +47,7 @@ public class XlsTest {
         easySharedRead("eec shared 1w.xls");
     }
 
-    @Test public void testEasl5w() {
+    @Test public void testEas5w() {
         easySharedRead("eec shared 5w.xls");
     }
 
