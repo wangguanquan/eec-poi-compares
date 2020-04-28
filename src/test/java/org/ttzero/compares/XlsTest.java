@@ -17,20 +17,22 @@
 
 package org.ttzero.compares;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
+import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 import static org.ttzero.compares.LargeExcelTest.easySharedRead;
 import static org.ttzero.compares.LargeExcelTest.eecSharedRead;
 
 /**
  * @author guanquan.wang at 2020-03-23 11:57
  */
+@FixMethodOrder(NAME_ASCENDING)
 public class XlsTest {
 
     @Test public void testEec1w() {
         eecSharedRead("eec shared 1w.xls");
     }
-
 
     @Test public void testEec5w() {
         eecSharedRead("eec shared 5w.xls");
@@ -44,11 +46,19 @@ public class XlsTest {
         eecSharedRead("eec shared 32w.xls");
     }
 
+    @Test public void testEec50w() {
+        eecSharedRead("eec shared 50w.xls");
+    }
+
+    @Test public void testEec100w() {
+        eecSharedRead("eec shared 100w.xls");
+    }
+
     @Test public void testEas1w() {
         easySharedRead("eec shared 1w.xls");
     }
 
-    @Test public void testEasl5w() {
+    @Test public void testEas5w() {
         easySharedRead("eec shared 5w.xls");
     }
 
@@ -58,5 +68,13 @@ public class XlsTest {
 
     @Test public void testEas32w() {
         easySharedRead("eec shared 32w.xls");
+    }
+
+    @Test public void testEas50w() {
+        easySharedRead("eec shared 50w.xls");
+    }
+
+    @Test public void testEas100w() {
+        easySharedRead("eec shared 100w.xls");
     }
 }

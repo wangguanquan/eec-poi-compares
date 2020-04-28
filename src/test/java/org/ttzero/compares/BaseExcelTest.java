@@ -199,7 +199,7 @@ public class BaseExcelTest {
         .writeTo(defaultTestPath);
     }
 
-    private ReadListener<Map<String, Object>> simpleListener = new AnalysisEventListener<Map<String, Object>> () {
+    static ReadListener<Map<String, Object>> simpleListener = new AnalysisEventListener<Map<String, Object>> () {
         @Override
         public void invoke(Map<String, Object> data, AnalysisContext context) {
             System.out.println(data);

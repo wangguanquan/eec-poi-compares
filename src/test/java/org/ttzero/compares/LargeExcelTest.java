@@ -229,21 +229,21 @@ public class LargeExcelTest {
     //-----------------1w----------------
     @Test public void testEecShared1w() throws IOException {
         loop = 10;
-        eecWriteShared("eec1 shared 1w");
+        eecWriteShared("eec shared 1w");
     }
 
     @Test public void testEecShared1wr() {
-        eecSharedRead("eec1 shared 1w.xlsx");
+        eecSharedRead("eec shared 1w.xlsx");
     }
 
     @Test public void testEsyShared1wr() {
-        easySharedRead("eec1 shared 1w.xlxs");
+        easySharedRead("eec shared 1w.xlsx");
     }
 
     //-----------------5w----------------
     @Test public void testEecShared5w() throws IOException {
         loop = 50;
-        eecWriteShared("eec1 shared 5w");
+        eecWriteShared("eec shared 5w");
     }
 
     @Test public void testEecShared5wr() {
@@ -257,7 +257,7 @@ public class LargeExcelTest {
     //-----------------10w----------------
     @Test public void testEecShared10w() throws IOException {
         loop = 100;
-        eecWriteShared("eec1 shared 10w");
+        eecWriteShared("eec shared 10w");
     }
 
     @Test public void testEecShared10wr() {
@@ -271,7 +271,7 @@ public class LargeExcelTest {
     //-----------------50w----------------
     @Test public void testEecShared50w() throws IOException {
         loop = 500;
-        eecWriteShared("eec1 shared 50w");
+        eecWriteShared("eec shared 50w");
     }
 
     @Test public void testEecShared50wr() {
@@ -285,7 +285,7 @@ public class LargeExcelTest {
     //-----------------100w----------------
     @Test public void testEecShared100w() throws IOException {
         loop = 1000;
-        eecWriteShared("eec1 shared 100w");
+        eecWriteShared("eec shared 100w");
     }
 
     @Test public void testEecShared100wr() {
@@ -297,6 +297,37 @@ public class LargeExcelTest {
     }
 
     //--------------------------------------
+
+    @Test public void testEecShared50w2() throws IOException {
+        loop = 1000;
+        eecWritePaging("eec1 shared 100w");
+    }
+
+    //-----------------CSV---------------------
+    @Test public void testCSV1w() throws IOException {
+        loop = 10;
+        eecWriteCSV("eec 1w");
+    }
+
+    @Test public void testCSV5w() throws IOException {
+        loop = 50;
+        eecWriteCSV("eec 5w");
+    }
+
+    @Test public void testCSV10w() throws IOException {
+        loop = 100;
+        eecWriteCSV("eec 10w");
+    }
+
+    @Test public void testCSV50w() throws IOException {
+        loop = 500;
+        eecWriteCSV("eec 50w");
+    }
+
+    @Test public void testCSV100w() throws IOException {
+        loop = 1000;
+        eecWriteCSV("eec 100w");
+    }
 
     private void easyWrite(String name) {
         LOGGER.info("Easy-excel start to write...");
@@ -330,7 +361,7 @@ public class LargeExcelTest {
         new Workbook().addSheet(new ListSheet<LargeSharedData>() {
             int n = 0;
             public List<LargeSharedData> more() {
-                LOGGER.info("{} fill success.", n);
+                if (n % 10 == 0) LOGGER.info("{} fill success.", n);
                 return n++ < loop ? createSharedData() : null;
             }
         }).writeTo(defaultTestPath.resolve(name + ".xlsx"));
@@ -381,7 +412,7 @@ public class LargeExcelTest {
     private static void eecRead(String name, Class<?> clazz) {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
-        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name), 128, 128)) {
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name))) {
             long n = reader.sheets().flatMap(sheet -> {
                 LOGGER.info("Worksheet [{}] dimension: {}", sheet.getName(), sheet.getDimension());
                 return sheet.dataRows();
@@ -427,6 +458,11 @@ public class LargeExcelTest {
             @Override
             protected IWorksheetWriter getWorksheetWriter(org.ttzero.excel.entity.Sheet sheet) {
                 return new XMLWorksheetWriter(sheet) {
+                    /**
+                     * xls每个Worksheet最大包含65536行x256列，所以这里设置分页参数为{@code 65536-1}(去除第一行的表头)
+                     *
+                     * @return 每页最大行限制
+                     */
                     @Override
                     public int getRowLimit() {
                         return (1 << 16) - 1;
@@ -434,6 +470,19 @@ public class LargeExcelTest {
                 };
             }
         }).writeTo(defaultTestPath.resolve(name + ".xlsx"));
+        LOGGER.info("EEC write finished. used: {}", System.currentTimeMillis() - start);
+    }
+
+    private void eecWriteCSV(String name) throws IOException {
+        LOGGER.info("EEC start to write...");
+        long start = System.currentTimeMillis();
+        new Workbook().addSheet(new ListSheet<LargeSharedData>() {
+            int n = 0;
+            public List<LargeSharedData> more() {
+                LOGGER.info("{} fill success.", n);
+                return n++ < loop ? createSharedData() : null;
+            }
+        }).saveAsCSV().writeTo(defaultTestPath.resolve(name + ".csv"));
         LOGGER.info("EEC write finished. used: {}", System.currentTimeMillis() - start);
     }
 
