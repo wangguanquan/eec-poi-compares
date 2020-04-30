@@ -23,7 +23,7 @@ package org.ttzero.compares;
 public class Check {
     private int id;
     private double total;
-
+    public Check() { }
     public Check(int id, double total) {
         this.id = id;
         this.total = total;

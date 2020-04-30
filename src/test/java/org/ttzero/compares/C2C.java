@@ -23,7 +23,7 @@ package org.ttzero.compares;
 public class C2C {
     private int ch_id;
     private int cu_id;
-
+    public C2C() { }
     public C2C(int ch_id, int cu_id) {
         this.ch_id = ch_id;
         this.cu_id = cu_id;

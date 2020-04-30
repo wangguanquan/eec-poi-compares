@@ -34,10 +34,11 @@ import org.ttzero.excel.entity.WaterMark;
 import org.ttzero.excel.entity.Workbook;
 import org.ttzero.excel.entity.style.Fill;
 import org.ttzero.excel.entity.style.Styles;
+import org.ttzero.excel.reader.Dimension;
 import org.ttzero.excel.reader.ExcelReader;
 import org.ttzero.excel.reader.Sheet;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -45,6 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.ttzero.compares.LargeExcelTest.defaultTestPath;
 
@@ -220,14 +222,44 @@ public class BaseExcelTest {
 
     @Test public void test10() {
         try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve("test8.xlsx"))) {
-            reader.sheets().flatMap(sheet -> {
-                System.out.println("----------" + sheet.getName() + "-----------");
-                return sheet.rows();
-            }).forEach(System.out::println);
+            reader.sheets()
+                .peek(sheet -> System.out.println("----------" + sheet.getName() + "-----------"))
+                .flatMap(Sheet::rows)
+                .forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @Test public void test11() {
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve("test8.xlsx"))) {
+            Sheet firstSheet = reader.sheet(0);
+
+            Dimension dimension = firstSheet.getDimension();
+            // lastRow - firstRow = 数据行的行数，不包含header
+            if (dimension.lastRow - dimension.firstRow > 1000) {
+                // 如果数据量超过1千则选择流式处理，forEach里也可以收集一定量的实体再批量处理
+                firstSheet.dataRows().map(row -> row.too(Check.class)).forEach(check -> {
+                    // TODO 业务处理
+                });
+            } else {
+                // 数据量小于1千则直接转为集合处理
+                List<Check> checks = firstSheet.dataRows().map(row -> row.to(Check.class)).collect(Collectors.toList());
+                // TODO 业务处理
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 
