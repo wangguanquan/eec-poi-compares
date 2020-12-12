@@ -29,6 +29,7 @@ import static org.ttzero.compares.BaseExcelTest.random;
  * @author guanquan.wang at 2020-03-05 16:59
  */
 public class Student {
+    @ExcelColumn
     private int id;
     @ExcelColumn("姓名")
     private String name;

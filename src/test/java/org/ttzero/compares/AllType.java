@@ -17,6 +17,8 @@
 
 package org.ttzero.compares;
 
+import org.ttzero.excel.annotation.ExcelColumn;
+
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -35,20 +37,35 @@ import static org.ttzero.compares.BaseExcelTest.random;
  * @author guanquan.wang at 2020-03-05 15:41
  */
 public class AllType {
+    @ExcelColumn
     private boolean bv;
+    @ExcelColumn
     private char cv;
+    @ExcelColumn
     private short sv;
+    @ExcelColumn
     private int nv;
+    @ExcelColumn
     private long lv;
+    @ExcelColumn
     private float fv;
+    @ExcelColumn
     private double dv;
+    @ExcelColumn
     private String s;
+    @ExcelColumn
     private BigDecimal mv;
+    @ExcelColumn
     private Date av;
+    @ExcelColumn
     private Timestamp iv;
+    @ExcelColumn
     private Time tv;
+    @ExcelColumn
     private LocalDate ldv;
+    @ExcelColumn
     private LocalDateTime ldtv;
+    @ExcelColumn
     private LocalTime ltv;
 
     public static List<AllType> randomTestData(int size) {

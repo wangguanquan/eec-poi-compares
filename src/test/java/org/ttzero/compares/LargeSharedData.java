@@ -25,9 +25,13 @@ import java.util.Date;
  * @author guanquan.wang at 2020-03-03 10:36
  */
 public class LargeSharedData {
+    @ExcelColumn
     private int nv;
+    @ExcelColumn
     private long lv;
+    @ExcelColumn
     private double dv;
+    @ExcelColumn
     private Date av;
     @ExcelColumn(value = "省", share = true)
     private String province;

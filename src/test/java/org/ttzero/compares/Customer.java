@@ -17,11 +17,15 @@
 
 package org.ttzero.compares;
 
+import org.ttzero.excel.annotation.ExcelColumn;
+
 /**
  * @author guanquan.wang at 2020-03-05 11:20
  */
 public class Customer {
+    @ExcelColumn
     private int id;
+    @ExcelColumn
     private String name;
     public Customer() { }
     public Customer(int id, String name) {

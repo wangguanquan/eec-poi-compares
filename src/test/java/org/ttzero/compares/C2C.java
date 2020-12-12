@@ -17,11 +17,15 @@
 
 package org.ttzero.compares;
 
+import org.ttzero.excel.annotation.ExcelColumn;
+
 /**
  * @author guanquan.wang at 2020-03-05 11:20
  */
 public class C2C {
+    @ExcelColumn
     private int ch_id;
+    @ExcelColumn
     private int cu_id;
     public C2C() { }
     public C2C(int ch_id, int cu_id) {

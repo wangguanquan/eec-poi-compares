@@ -17,40 +17,71 @@
 
 package org.ttzero.compares;
 
+import org.ttzero.excel.annotation.ExcelColumn;
+
 import java.util.Date;
 
 /**
  * @author guanquan.wang at 2020-03-03 10:36
  */
 public class LargeData {
+    @ExcelColumn
     private int nv;
+    @ExcelColumn
     private long lv;
+    @ExcelColumn
     private double dv;
+    @ExcelColumn
     private Date av;
+    @ExcelColumn
     private String str1;
+    @ExcelColumn
     private String str2;
+    @ExcelColumn
     private String str3;
+    @ExcelColumn
     private String str4;
+    @ExcelColumn
     private String str5;
+    @ExcelColumn
     private String str6;
+    @ExcelColumn
     private String str7;
+    @ExcelColumn
     private String str8;
+    @ExcelColumn
     private String str9;
+    @ExcelColumn
     private String str10;
+    @ExcelColumn
     private String str11;
+    @ExcelColumn
     private String str12;
+    @ExcelColumn
     private String str13;
+    @ExcelColumn
     private String str14;
+    @ExcelColumn
     private String str15;
+    @ExcelColumn
     private String str16;
+    @ExcelColumn
     private String str17;
+    @ExcelColumn
     private String str18;
+    @ExcelColumn
     private String str19;
+    @ExcelColumn
     private String str20;
+    @ExcelColumn
     private String str21;
+    @ExcelColumn
     private String str22;
+    @ExcelColumn
     private String str23;
+    @ExcelColumn
     private String str24;
+    @ExcelColumn
     private String str25;
 
     public int getNv() {

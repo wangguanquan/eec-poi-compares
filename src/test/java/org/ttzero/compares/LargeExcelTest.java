@@ -435,7 +435,7 @@ public class LargeExcelTest {
     private void eecDistinct(String name) {
         LOGGER.info("EEC start to read...");
         long start = System.currentTimeMillis();
-        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name + ".xlsx"))) {
+        try (ExcelReader reader = ExcelReader.read(defaultTestPath.resolve(name))) {
             String[] provinces = reader.sheets().flatMap(Sheet::rows).map(row -> row.getString(4)).distinct().toArray(String[]::new);
             LOGGER.info("Distinct provinces: {}", Arrays.toString(provinces));
         } catch (IOException e) {
