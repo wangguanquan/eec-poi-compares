@@ -17,6 +17,8 @@
 
 package org.ttzero.compares;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
 import org.ttzero.excel.annotation.ExcelColumn;
 
 /**
@@ -24,6 +26,8 @@ import org.ttzero.excel.annotation.ExcelColumn;
  */
 public class C2C {
     @ExcelColumn
+    @ExcelIgnore
+    @ExcelProperty
     private int ch_id;
     @ExcelColumn
     private int cu_id;

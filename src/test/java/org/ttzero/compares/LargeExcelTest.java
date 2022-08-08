@@ -46,6 +46,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
+import static org.ttzero.compares.BaseExcelTest.getRandomString;
 import static org.ttzero.compares.BaseExcelTest.random;
 
 /**
@@ -498,31 +499,31 @@ public class LargeExcelTest {
             largeData.setLv(random.nextLong());
             largeData.setDv(random.nextDouble());
             largeData.setAv(new Date(System.currentTimeMillis() - random.nextInt(9999)));
-            largeData.setStr1("str1-" + i);
-            largeData.setStr2("str2-" + i);
-            largeData.setStr3("str3-" + i);
-            largeData.setStr4("str4-" + i);
-            largeData.setStr5("str5-" + i);
-            largeData.setStr6("str6-" + i);
-            largeData.setStr7("str7-" + i);
-            largeData.setStr8("str8-" + i);
-            largeData.setStr9("str9-" + i);
-            largeData.setStr10("str10-" + i);
-            largeData.setStr11("str11-" + i);
-            largeData.setStr12("str12-" + i);
-            largeData.setStr13("str13-" + i);
-            largeData.setStr14("str14-" + i);
-            largeData.setStr15("str15-" + i);
-            largeData.setStr16("str16-" + i);
-            largeData.setStr17("str17-" + i);
-            largeData.setStr18("str18-" + i);
-            largeData.setStr19("str19-" + i);
-            largeData.setStr20("str20-" + i);
-            largeData.setStr21("str21-" + i);
-            largeData.setStr22("str22-" + i);
-            largeData.setStr23("str23-" + i);
-            largeData.setStr24("str24-" + i);
-            largeData.setStr25("str25-" + i);
+            largeData.setStr1(getRandomString());
+            largeData.setStr2(getRandomString());
+            largeData.setStr3(getRandomString());
+            largeData.setStr4(getRandomString());
+            largeData.setStr5(getRandomString());
+            largeData.setStr6(getRandomString());
+            largeData.setStr7(getRandomString());
+            largeData.setStr8(getRandomString());
+            largeData.setStr9(getRandomString());
+            largeData.setStr10(getRandomString());
+            largeData.setStr11(getRandomString());
+            largeData.setStr12(getRandomString());
+            largeData.setStr13(getRandomString());
+            largeData.setStr14(getRandomString());
+            largeData.setStr15(getRandomString());
+            largeData.setStr16(getRandomString());
+            largeData.setStr17(getRandomString());
+            largeData.setStr18(getRandomString());
+            largeData.setStr19(getRandomString());
+            largeData.setStr20(getRandomString());
+            largeData.setStr21(getRandomString());
+            largeData.setStr22(getRandomString());
+            largeData.setStr23(getRandomString());
+            largeData.setStr24(getRandomString());
+            largeData.setStr25(getRandomString());
         }
         return list;
     }
